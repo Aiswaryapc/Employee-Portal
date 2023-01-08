@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Employee {
@@ -20,6 +22,10 @@ public class Employee {
 	 private int mobileNumber;
 	 private String email;
 	 private String password;
+	 private Admin supervisor;
+	 @ManyToOne
+	 @JoinColumn(name = "project_id")
+	 private Project project;
 	 
 	 
 public Employee(){
@@ -28,7 +34,7 @@ public Employee(){
 
 
 public Employee(String name, String gender, int age, String address, String city, String state, int mobileNumber,
-		String email, String password) {
+		String email, String password, Admin supervisor, Project project) {
 	super();
 	this.name = name;
 	Gender = gender;
@@ -39,6 +45,8 @@ public Employee(String name, String gender, int age, String address, String city
 	this.mobileNumber = mobileNumber;
 	this.email = email;
 	this.password = password;
+	this.supervisor = supervisor;
+	this.project = project;
 }
 
 
@@ -142,13 +150,32 @@ public void setPassword(String password) {
 }
 
 
+public Admin getSupervisor() {
+	return supervisor;
+}
+
+
+public void setSupervisor(Admin supervisor) {
+	this.supervisor = supervisor;
+}
+
+
+public Project getProject() {
+	return project;
+}
+
+
+public void setProject(Project project) {
+	this.project = project;
+}
+
+
 @Override
 public String toString() {
 	return "Employee [empID=" + empID + ", name=" + name + ", Gender=" + Gender + ", age=" + age + ", address="
 			+ address + ", city=" + city + ", state=" + state + ", mobileNumber=" + mobileNumber + ", email=" + email
-			+ ", password=" + password + "]";
+			+ ", password=" + password + ", supervisor=" + supervisor + ", project=" + project + "]";
 }
-
 
 
 
