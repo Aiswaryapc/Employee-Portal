@@ -14,7 +14,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private int empID;
 	 private String name;
-	 private String Gender;
+	 private String gender;
 	 private int age;
 	 private String address;
 	 private String city;
@@ -22,7 +22,7 @@ public class Employee {
 	 private int mobileNumber;
 	 private String email;
 	 private String password;
-	 private Admin supervisor;
+	 private String supervisor;
 	 @ManyToOne
 	 @JoinColumn(name = "project_id")
 	 private Project project;
@@ -34,10 +34,10 @@ public Employee(){
 
 
 public Employee(String name, String gender, int age, String address, String city, String state, int mobileNumber,
-		String email, String password, Admin supervisor, Project project) {
+		String email, String password, String supervisor, Project project) {
 	super();
 	this.name = name;
-	Gender = gender;
+	this.gender = gender;
 	this.age = age;
 	this.address = address;
 	this.city = city;
@@ -47,6 +47,22 @@ public Employee(String name, String gender, int age, String address, String city
 	this.password = password;
 	this.supervisor = supervisor;
 	this.project = project;
+}
+
+
+public Employee(String name, String gender, int age, String address, String city, String state, int mobileNumber,
+		String email, String password, String supervisor) {
+	super();
+	this.name = name;
+	this.gender = gender;
+	this.age = age;
+	this.address = address;
+	this.city = city;
+	this.state = state;
+	this.mobileNumber = mobileNumber;
+	this.email = email;
+	this.password = password;
+	this.supervisor = supervisor;
 }
 
 
@@ -71,12 +87,12 @@ public void setName(String name) {
 
 
 public String getGender() {
-	return Gender;
+	return gender;
 }
 
 
 public void setGender(String gender) {
-	Gender = gender;
+	gender = gender;
 }
 
 
@@ -150,12 +166,12 @@ public void setPassword(String password) {
 }
 
 
-public Admin getSupervisor() {
+public String getSupervisor() {
 	return supervisor;
 }
 
 
-public void setSupervisor(Admin supervisor) {
+public void setSupervisor(String supervisor) {
 	this.supervisor = supervisor;
 }
 
@@ -172,7 +188,7 @@ public void setProject(Project project) {
 
 @Override
 public String toString() {
-	return "Employee [empID=" + empID + ", name=" + name + ", Gender=" + Gender + ", age=" + age + ", address="
+	return "Employee [empID=" + empID + ", name=" + name + ", Gender=" + gender + ", age=" + age + ", address="
 			+ address + ", city=" + city + ", state=" + state + ", mobileNumber=" + mobileNumber + ", email=" + email
 			+ ", password=" + password + ", supervisor=" + supervisor + ", project=" + project + "]";
 }

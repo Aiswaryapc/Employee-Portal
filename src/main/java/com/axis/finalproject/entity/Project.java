@@ -1,32 +1,40 @@
 package com.axis.finalproject.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+
+
 @Entity
 public class Project {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer projectId;
-	@OneToMany
-	@JoinColumn(name="stakeholder_id")
-	private Stakeholders stakeholder;
-	@ManyToMany
-	@JoinColumn(name="job_id")
-	private JobOpportunities jobopportunities;
+	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY,
+			cascade = CascadeType.ALL )
+	Set<Stakeholders> stakeholder;
+//	@ManyToMany
+//	@JoinColumn(name="job_id")
+	private String jobopportunities;
 	private String flowChart;
-	@OneToMany
-	@JoinColumn(name="emp_id")
-	private Employee employee;
+	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY,
+			cascade = CascadeType.ALL )
+	Set<Employee> employee;
+	
 	private String owner;
 	public Project() {
 		super();
 	}
-	public Project(Stakeholders stakeholder, JobOpportunities jobopportunities, String flowChart, Employee employee,
+	public Project(Set<Stakeholders> stakeholder, String jobopportunities, String flowChart, Set<Employee> employee,
 			String owner) {
 		super();
 		this.stakeholder = stakeholder;
@@ -41,16 +49,16 @@ public class Project {
 	public void setProjectId(Integer projectId) {
 		this.projectId = projectId;
 	}
-	public Stakeholders getStakeholder() {
+	public Set<Stakeholders> getStakeholder() {
 		return stakeholder;
 	}
-	public void setStakeholder(Stakeholders stakeholder) {
+	public void setStakeholder(Set<Stakeholders> stakeholder) {
 		this.stakeholder = stakeholder;
 	}
-	public JobOpportunities getJobopportunities() {
+	public String getJobopportunities() {
 		return jobopportunities;
 	}
-	public void setJobopportunities(JobOpportunities jobopportunities) {
+	public void setJobopportunities(String jobopportunities) {
 		this.jobopportunities = jobopportunities;
 	}
 	public String getFlowChart() {
@@ -59,10 +67,10 @@ public class Project {
 	public void setFlowChart(String flowChart) {
 		this.flowChart = flowChart;
 	}
-	public Employee getEmployee() {
+	public Set<Employee> getEmployee() {
 		return employee;
 	}
-	public void setEmployee(Employee employee) {
+	public void setEmployee(Set<Employee> employee) {
 		this.employee = employee;
 	}
 	public String getOwner() {
