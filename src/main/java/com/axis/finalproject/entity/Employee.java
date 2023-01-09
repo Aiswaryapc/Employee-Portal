@@ -19,7 +19,7 @@ public class Employee {
 	 private String address;
 	 private String city;
 	 private String state;
-	 private int mobileNumber;
+	 private String mobileNumber;
 	 private String email;
 	 private String password;
 	 private String supervisor;
@@ -33,7 +33,7 @@ public Employee(){
 }
 
 
-public Employee(String name, String gender, int age, String address, String city, String state, int mobileNumber,
+public Employee(String name, String gender, int age, String address, String city, String state, String mobileNumber,
 		String email, String password, String supervisor, Project project) {
 	super();
 	this.name = name;
@@ -50,7 +50,7 @@ public Employee(String name, String gender, int age, String address, String city
 }
 
 
-public Employee(String name, String gender, int age, String address, String city, String state, int mobileNumber,
+public Employee(String name, String gender, int age, String address, String city, String state, String mobileNumber,
 		String email, String password, String supervisor) {
 	super();
 	this.name = name;
@@ -92,7 +92,7 @@ public String getGender() {
 
 
 public void setGender(String gender) {
-	gender = gender;
+	this.gender = gender;
 }
 
 
@@ -136,12 +136,12 @@ public void setState(String state) {
 }
 
 
-public int getMobileNumber() {
+public String getMobileNumber() {
 	return mobileNumber;
 }
 
 
-public void setMobileNumber(int mobileNumber) {
+public void setMobileNumber(String mobileNumber) {
 	this.mobileNumber = mobileNumber;
 }
 

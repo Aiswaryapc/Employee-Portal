@@ -7,11 +7,11 @@ public class SignupDto {
 	 private String address;
 	 private String city;
 	 private String state;
-	 private int mobileNumber;
+	 private String mobileNumber;
 	 private String email;
 	 private String password;
 	 private String supervisor;
-	public SignupDto(String name, String gender, int age, String address, String city, String state, int mobileNumber,
+	public SignupDto(String name, String gender, int age, String address, String city, String state, String mobileNumber,
 			String email, String password, String supervisor) {
 		super();
 		this.name = name;
@@ -64,10 +64,10 @@ public class SignupDto {
 	public void setState(String state) {
 		this.state = state;
 	}
-	public int getMobileNumber() {
+	public String getMobileNumber() {
 		return mobileNumber;
 	}
-	public void setMobileNumber(int mobileNumber) {
+	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
 	public String getEmail() {
