@@ -1,10 +1,16 @@
 package com.axis.finalproject.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -26,7 +32,11 @@ public class Employee {
 	 @ManyToOne
 	 @JoinColumn(name = "project_id")
 	 private Project project;
-	 
+		@ManyToMany(fetch = FetchType.LAZY)
+		@JoinTable(	name = "user_roles", 
+					joinColumns = @JoinColumn(name = "user_id"), 
+					inverseJoinColumns = @JoinColumn(name = "role_id"))
+		private Set<Role> roles = new HashSet<>();
 	 
 public Employee(){
 	
@@ -63,6 +73,16 @@ public Employee(String name, String gender, int age, String address, String city
 	this.email = email;
 	this.password = password;
 	this.supervisor = supervisor;
+}
+
+
+public Set<Role> getRoles() {
+	return roles;
+}
+
+
+public void setRoles(Set<Role> roles) {
+	this.roles = roles;
 }
 
 
@@ -192,6 +212,9 @@ public String toString() {
 			+ address + ", city=" + city + ", state=" + state + ", mobileNumber=" + mobileNumber + ", email=" + email
 			+ ", password=" + password + ", supervisor=" + supervisor + ", project=" + project + "]";
 }
+
+
+
 
 
 

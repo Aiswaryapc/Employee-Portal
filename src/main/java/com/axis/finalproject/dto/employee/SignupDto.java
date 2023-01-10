@@ -1,5 +1,10 @@
 package com.axis.finalproject.dto.employee;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+
 public class SignupDto {
 	 private String name;
 	 private String gender;
@@ -11,6 +16,7 @@ public class SignupDto {
 	 private String email;
 	 private String password;
 	 private String supervisor;
+	 private Set<String> roles;
 	public SignupDto(String name, String gender, int age, String address, String city, String state, String mobileNumber,
 			String email, String password, String supervisor) {
 		super();
@@ -28,6 +34,13 @@ public class SignupDto {
 	public SignupDto() {
 		super();
 	}
+
+	public Set<String> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<String> roles) {
+		this.roles = roles;
+	}
 	public String getName() {
 		return name;
 	}
@@ -38,7 +51,7 @@ public class SignupDto {
 		return gender;
 	}
 	public void setGender(String gender) {
-		gender = gender;
+		this.gender = gender;
 	}
 	public int getAge() {
 		return age;
