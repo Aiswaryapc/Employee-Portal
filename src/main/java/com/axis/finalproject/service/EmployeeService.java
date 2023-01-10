@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.axis.finalproject.config.TokenManager;
 import com.axis.finalproject.dto.employee.SignInDto;
 import com.axis.finalproject.dto.employee.SignInResponseDto;
 import com.axis.finalproject.dto.employee.SignupDto;
@@ -34,7 +35,8 @@ public class EmployeeService {
 //    @Autowired
 //    AuthenticationService authenticationService;
     
-
+    @Autowired
+	private TokenManager jwtTokenUtil;
 
     @Transactional
     public ResponseEntity<String> signUp(SignupDto signupDto) {
@@ -106,7 +108,7 @@ public class EmployeeService {
         // compare the password in DB
 
         // if password match
-
+      //  final String token = jwtTokenUtil.generateJwtToken(emp);
 //        AuthenticationToken token = authenticationService.getEToken(emp);
 //
 //        // retrive the token
@@ -116,7 +118,7 @@ public class EmployeeService {
 //        }
 //
 //        return new SignInResponseDto("sucess", token.getToken());
-        return new SignInResponseDto("sucess");
+        return new SignInResponseDto("success");
         // return response
     }
 }

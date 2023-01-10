@@ -1,7 +1,13 @@
 package com.axis.finalproject.dto.employee;
 
-public class SignInDto {
-    private String email;
+import java.io.Serializable;
+
+public class SignInDto implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String email;
     private String password;
 
     public String getEmail() {
