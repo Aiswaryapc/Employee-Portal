@@ -198,6 +198,10 @@ public class UserDetailsImpl implements UserDetails {
 	}
 
 
+
+
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -207,12 +211,7 @@ public class UserDetailsImpl implements UserDetails {
 		if (getClass() != obj.getClass())
 			return false;
 		UserDetailsImpl other = (UserDetailsImpl) obj;
-		return Objects.equals(address, other.address) && age == other.age
-				&& Objects.equals(authorities, other.authorities) && Objects.equals(city, other.city)
-				&& Objects.equals(email, other.email) && empID == other.empID && Objects.equals(gender, other.gender)
-				&& Objects.equals(mobileNumber, other.mobileNumber) && Objects.equals(name, other.name)
-				&& Objects.equals(password, other.password) && Objects.equals(state, other.state)
-				&& Objects.equals(supervisor, other.supervisor);
+		return Objects.equals(empID, other.empID);
 	}
 
 	@Override
@@ -220,6 +219,8 @@ public class UserDetailsImpl implements UserDetails {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 
 }

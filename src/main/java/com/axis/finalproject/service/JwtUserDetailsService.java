@@ -1,9 +1,9 @@
 package com.axis.finalproject.service;
 
-import java.util.ArrayList;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,6 +24,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 		  if (emp == null) {
 	            throw new UsernameNotFoundException("email Not found" + email);
 	        }
-	        return new User(emp.getEmail(), emp.getPassword(), new ArrayList<>());
+	        return UserDetailsImpl.build(emp);
 	    }
 	}

@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.axis.finalproject.config.JwtUtils;
-import com.axis.finalproject.dto.employee.MessageResponsedto;
 import com.axis.finalproject.dto.employee.SignInDto;
 import com.axis.finalproject.dto.employee.SignInResponseDto;
 import com.axis.finalproject.dto.employee.SignupDto;
@@ -77,7 +76,7 @@ public class AuthController {
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
 			return ResponseEntity
 					.badRequest()
-					.body(new MessageResponsedto("Error: Email is already in use!"));
+					.body(new CustomException("Error: Email is already in use!"));
 		}
 
 		// Create new user's account
