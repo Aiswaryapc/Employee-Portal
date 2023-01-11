@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.axis.finalproject.entity.Product;
+import com.axis.finalproject.product.dto.ProductDto;
+
 import com.axis.finalproject.service.ProductService;
 
 @RestController
@@ -30,5 +32,10 @@ public class ProductController {
         List<Product> product = productService.listProducts();
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
+    @PostMapping("/add")
+	public ResponseEntity<String> addStakeholder(@RequestBody ProductDto productDto){
+		productService.addproduct(productDto);
+		return new ResponseEntity<String>("product added Successfuly",HttpStatus.OK);
+	}
 
 }

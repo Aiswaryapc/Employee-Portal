@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.axis.finalproject.entity.Product;
+
 import com.axis.finalproject.exceptions.ProductNotExistsException;
+import com.axis.finalproject.product.dto.ProductDto;
+
 import com.axis.finalproject.repository.ProductRepository;
 
 @Service
@@ -36,7 +39,17 @@ public class ProductService {
         }
         return optionalProduct.get();
     }
-    
+	public void addproduct(ProductDto productDto) {
+		Product product = new Product(
+				productDto.getCategory(),
+				productDto.getName(),
+				productDto.getImageUrl(),
+				productDto.getDetailedImageUrl(),
+				productDto.getDescription()
+				);
+		productRepository.save(product);
+	}
+
    
     
 }

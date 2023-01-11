@@ -1,6 +1,7 @@
 package com.axis.finalproject.product.dto;
 
 public class ProductDto {
+	private String category;
 	private String name;
 	private String imageUrl;
 	private String detailedImageUrl;
@@ -8,13 +9,24 @@ public class ProductDto {
 	public ProductDto() {
 		super();
 	}
-	public ProductDto(String name, String imageUrl, String detailedImageUrl, String description) {
+	
+	public ProductDto(String category, String name, String imageUrl, String detailedImageUrl, String description) {
 		super();
+		this.category = category;
 		this.name = name;
 		this.imageUrl = imageUrl;
 		this.detailedImageUrl = detailedImageUrl;
 		this.description = description;
 	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	public String getName() {
 		return name;
 	}

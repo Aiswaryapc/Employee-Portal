@@ -21,6 +21,7 @@ public class Project {
 	@OneToMany(mappedBy = "project", fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL )
 	Set<Stakeholders> stakeholder;
+	private String projName;
 //	@ManyToMany
 //	@JoinColumn(name="job_id")
 	private String jobopportunities;
@@ -33,15 +34,26 @@ public class Project {
 	public Project() {
 		super();
 	}
-	public Project(Set<Stakeholders> stakeholder, String jobopportunities, String flowChart, Set<Employee> employee,
-			String owner) {
+
+	public Project(Set<Stakeholders> stakeholder, String projName, String jobopportunities, String flowChart,
+			Set<Employee> employee, String owner) {
 		super();
 		this.stakeholder = stakeholder;
+		this.projName = projName;
 		this.jobopportunities = jobopportunities;
 		this.flowChart = flowChart;
 		this.employee = employee;
 		this.owner = owner;
 	}
+
+	public String getProjName() {
+		return projName;
+	}
+
+	public void setProjName(String projName) {
+		this.projName = projName;
+	}
+
 	public Integer getProjectId() {
 		return projectId;
 	}

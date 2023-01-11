@@ -14,7 +14,7 @@ import com.axis.finalproject.entity.Stakeholders;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
 
-	
+	Project findByProjName(String name);
 	@Modifying
 	@Query("update Project set stakeholder=?1, jobopportunities=?2 , flowChart=?3 , employee=?4 where projectId=?5")
 	void updateProjectInfo(Set<Stakeholders> stakeholder,String jobopportunities,
