@@ -3,6 +3,7 @@ package com.axis.finalproject.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Employee {
@@ -37,6 +41,16 @@ public class Employee {
 					joinColumns = @JoinColumn(name = "user_id"), 
 					inverseJoinColumns = @JoinColumn(name = "role_id"))
 		private Set<Role> roles = new HashSet<>();
+		@JsonIgnore
+		@OneToMany(mappedBy = "employee", fetch = FetchType.LAZY,
+				cascade = CascadeType.ALL )
+		Set<NewsFeed> newsFeed;
+		@JsonIgnore
+		@OneToMany(mappedBy = "employee", fetch = FetchType.LAZY,
+				cascade = CascadeType.ALL )
+		Set<Comment> comment;
+		
+		
 	 
 public Employee(){
 	
@@ -73,6 +87,26 @@ public Employee(String name, String gender, int age, String address, String city
 	this.email = email;
 	this.password = password;
 	this.supervisor = supervisor;
+}
+
+
+public Set<NewsFeed> getNewsFeed() {
+	return newsFeed;
+}
+
+
+public void setNewsFeed(Set<NewsFeed> newsFeed) {
+	this.newsFeed = newsFeed;
+}
+
+
+public Set<Comment> getComment() {
+	return comment;
+}
+
+
+public void setComment(Set<Comment> comment) {
+	this.comment = comment;
 }
 
 
