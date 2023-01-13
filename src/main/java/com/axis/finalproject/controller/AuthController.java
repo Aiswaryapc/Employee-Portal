@@ -39,6 +39,7 @@ import com.axis.finalproject.dto.employee.SignupDto;
 import com.axis.finalproject.entity.ERole;
 import com.axis.finalproject.entity.Employee;
 import com.axis.finalproject.entity.Role;
+import com.axis.finalproject.exceptions.AuthenticationFailException;
 import com.axis.finalproject.exceptions.CustomException;
 import com.axis.finalproject.repository.EmployeeRepository;
 import com.axis.finalproject.repository.RoleRepository;
@@ -93,21 +94,17 @@ public class AuthController {
 //                roles));
 //	}
 	  @PostMapping("/token")
-	  public ResponseEntity<String> getToken(@RequestBody SignInDto login) throws ServletException {
+	  public SignInResponseDto getToken(@RequestBody SignInDto login) throws ServletException {
 		  BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();  
 		  
 	        String jwttoken = "";
 	        Employee emp = userRepository.findByemail(login.getEmail());
 	        encoder.matches(login.getPassword(), emp.getPassword());  
 	        if(login.getEmail().isEmpty() || login.getPassword().isEmpty())
-	            return new ResponseEntity<String>("Email or password cannot be empty.", HttpStatus.BAD_REQUEST);
+	        	throw new AuthenticationFailException("Email or password cannot be empty.");
 	 
-	        String name = login.getEmail(), 
-	                password = encoder.encode(login.getPassword());
-	 
-	      
 	        if(!(login.getEmail().matches(emp.getEmail()) &&  encoder.matches(login.getPassword(), emp.getPassword())))
-	            return new ResponseEntity<String>("Invalid credentials. Please check the Email and password.", HttpStatus.UNAUTHORIZED);
+	        	throw new AuthenticationFailException("Invalid credentials. Please check the Email and password.");
 	        else {
 	           
 	            Map<String, Object> claims = new HashMap<String, Object>();
@@ -121,7 +118,7 @@ public class AuthController {
 	            System.out.println("Returning the following token to the user= "+ jwttoken);
 	        }
 	 
-	        return new ResponseEntity<String>(jwttoken, HttpStatus.OK);
+	        return new SignInResponseDto(jwttoken,emp.getEmpID(),emp.getName(),emp.getEmail(),emp.getRoles());
 	    }
 
 	@PostMapping("/signup")

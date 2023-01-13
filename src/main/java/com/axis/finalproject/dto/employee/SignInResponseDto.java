@@ -2,6 +2,9 @@ package com.axis.finalproject.dto.employee;
 
 
 import java.util.List;
+import java.util.Set;
+
+import com.axis.finalproject.entity.Role;
 
 public class SignInResponseDto {
 	
@@ -10,9 +13,9 @@ public class SignInResponseDto {
 	  private int id;
 	  private String username;
 	  private String email;
-	  private List<String> roles;
+	  private Set<Role> roles;
 
-	  public SignInResponseDto(String accessToken, int id, String username, String email, List<String> roles) {
+	  public SignInResponseDto(String accessToken, int id, String username, String email, Set<Role> roles) {
 	    this.token = accessToken;
 	    this.id = id;
 	    this.username = username;
@@ -60,7 +63,7 @@ public class SignInResponseDto {
 	    this.username = username;
 	  }
 
-	  public List<String> getRoles() {
+	  public Set<Role> getRoles() {
 	    return roles;
 	  }
 	}
