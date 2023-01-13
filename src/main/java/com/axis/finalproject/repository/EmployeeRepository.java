@@ -10,7 +10,7 @@ import com.axis.finalproject.entity.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
-    Employee findByEmail(String email);
+    Employee findByemail(String email);
     Employee findByName(String name);
     Boolean existsByEmail(String email);
 }

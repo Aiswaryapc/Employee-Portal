@@ -1,18 +1,30 @@
 package com.axis.finalproject.controller;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.servlet.ServletException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +45,11 @@ import com.axis.finalproject.repository.RoleRepository;
 import com.axis.finalproject.service.UserDetailsImpl;
 
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -52,23 +69,60 @@ public class AuthController {
 
 	@Autowired
 	JwtUtils jwtUtils;
-
-	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInDto loginRequest ) {
-
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String jwt = jwtUtils.generateJwtToken(authentication);
-		
-		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
-		List<String> roles = userDetails.getAuthorities().stream()
-				.map(item -> item.getAuthority())
-				.collect(Collectors.toList());
-
-		return ResponseEntity.ok(new SignInResponseDto(jwt));
-	}
+	@Value("${app.jwtSecret}")
+	private String jwtSecret;
+	//@PreAuthorize("hasRole('ROLE_USER')")
+//	@PostMapping("/signin")
+//	public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInDto loginRequest ) throws Exception {
+//
+//		Authentication authentication = authenticationManager.authenticate(
+//				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+//
+//		SecurityContextHolder.getContext().setAuthentication(authentication);
+//		String jwt = jwtUtils.generateJwtToken(authentication);
+//		
+//		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
+//		List<String> roles = userDetails.getAuthorities().stream()
+//				.map(item -> item.getAuthority())
+//				.collect(Collectors.toList());
+//
+//		return ResponseEntity.ok(new SignInResponseDto(jwt,
+//				userDetails.getEmpID(), 
+//                userDetails.getName(), 
+//                userDetails.getEmail(), 
+//                roles));
+//	}
+	  @PostMapping("/token")
+	  public ResponseEntity<String> getToken(@RequestBody SignInDto login) throws ServletException {
+		  BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();  
+		  
+	        String jwttoken = "";
+	        Employee emp = userRepository.findByemail(login.getEmail());
+	        encoder.matches(login.getPassword(), emp.getPassword());  
+	        if(login.getEmail().isEmpty() || login.getPassword().isEmpty())
+	            return new ResponseEntity<String>("Email or password cannot be empty.", HttpStatus.BAD_REQUEST);
+	 
+	        String name = login.getEmail(), 
+	                password = encoder.encode(login.getPassword());
+	 
+	      
+	        if(!(login.getEmail().matches(emp.getEmail()) &&  encoder.matches(login.getPassword(), emp.getPassword())))
+	            return new ResponseEntity<String>("Invalid credentials. Please check the Email and password.", HttpStatus.UNAUTHORIZED);
+	        else {
+	           
+	            Map<String, Object> claims = new HashMap<String, Object>();
+	            claims.put("usr", login.getEmail());
+	            claims.put("sub", "Authentication token");
+	            //claims.put("iss", Iconstants.ISSUER);
+	            claims.put("rol", "Administrator, Developer");
+	            claims.put("iat", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+	 
+	            jwttoken = Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
+	            System.out.println("Returning the following token to the user= "+ jwttoken);
+	        }
+	 
+	        return new ResponseEntity<String>(jwttoken, HttpStatus.OK);
+	    }
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupDto signUpRequest) {
