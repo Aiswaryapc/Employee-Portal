@@ -74,6 +74,26 @@ public Employee(String name, String gender, int age, String address, String city
 }
 
 
+
+
+
+public Employee(String name, String gender, int age, String address, String city, String state, String mobileNumber,
+		String email, String password, String supervisor, Set<Role> roles) {
+	super();
+	this.name = name;
+	this.gender = gender;
+	this.age = age;
+	this.address = address;
+	this.city = city;
+	this.state = state;
+	this.mobileNumber = mobileNumber;
+	this.email = email;
+	this.password = password;
+	this.supervisor = supervisor;
+	this.roles = roles;
+}
+
+
 public Employee(String name, String gender, int age, String address, String city, String state, String mobileNumber,
 		String email, String password, String supervisor) {
 	super();

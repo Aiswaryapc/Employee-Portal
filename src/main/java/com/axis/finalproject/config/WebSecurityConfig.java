@@ -16,6 +16,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.axis.finalproject.service.JwtUserDetailsService;
 
@@ -79,4 +82,48 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
+	
+	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception
+	
+	    {
+	
+	        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+	
+	   }
+
+	
+	    @Bean
+	
+	    CorsConfigurationSource corsConfigurationSource()
+	
+	    {
+	
+	        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	
+	        source.registerCorsConfiguration("/**",new CorsConfiguration().applyPermitDefaultValues());
+	
+	        return source;
+	
+	    }
+	
+	
+	
+	 
+//	  @Override
+//	    protected void configure(HttpSecurity http) throws Exception {
+//	        http
+//	        .authorizeRequests()
+//	        .antMatchers("/token")
+//	        .permitAll()
+//	        .anyRequest()
+//	        .authenticated()
+//	        .and()
+//	        .csrf().disable()
+//	        .addFilterBefore(authenticationJwtTokenFilter(), 
+//	                UsernamePasswordAuthenticationFilter.class);
+//	    }
+//	  
+	  
+	  
+	  
 }

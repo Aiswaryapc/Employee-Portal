@@ -31,6 +31,23 @@ public class SignupDto {
 		this.password = password;
 		this.supervisor = supervisor;
 	}
+	
+	public SignupDto(String name, String gender, int age, String address, String city, String state,
+			String mobileNumber, String email, String password, String supervisor, Set<String> roles) {
+		super();
+		this.name = name;
+		this.gender = gender;
+		this.age = age;
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.mobileNumber = mobileNumber;
+		this.email = email;
+		this.password = password;
+		this.supervisor = supervisor;
+		this.roles = roles;
+	}
+
 	public SignupDto() {
 		super();
 	}

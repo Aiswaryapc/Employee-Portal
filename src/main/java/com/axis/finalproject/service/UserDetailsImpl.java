@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
-
+private Employee emp;
 	 private int empID;
 	 private String name;
 	 private String gender;
@@ -218,7 +218,7 @@ public class UserDetailsImpl implements UserDetails {
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return null;
+		return emp.getEmail();
 	}
 
 
