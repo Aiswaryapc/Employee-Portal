@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Stakeholders {
 
@@ -17,6 +19,7 @@ public class Stakeholders {
 	private String position;
 	private String email;
 	private String state;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="project_id")
 	private Project project;

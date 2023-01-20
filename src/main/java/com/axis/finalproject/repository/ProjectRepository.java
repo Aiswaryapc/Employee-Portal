@@ -1,5 +1,6 @@
 package com.axis.finalproject.repository;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +18,6 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
 	Project findByProjName(String name);
 	@Modifying
 	@Query("update Project set stakeholder=?1, jobopportunities=?2 , flowChart=?3 , employee=?4 where projectId=?5")
-	void updateProjectInfo(Set<Stakeholders> stakeholder,String jobopportunities,
-			String flowChart,Set<Employee> employee,Integer projectId);
+	void updateProjectInfo(List<Stakeholders> stakeholder,String jobopportunities,
+			String flowChart,List<Employee> employee,Integer projectId);
 }

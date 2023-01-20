@@ -2,11 +2,8 @@ package com.axis.finalproject.dto.employee;
 
 import java.io.Serializable;
 
-public class SignInDto implements Serializable {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class SignInDto  {
+
 	private String email;
     private String password;
 

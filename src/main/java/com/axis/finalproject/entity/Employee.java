@@ -33,6 +33,7 @@ public class Employee {
 	 private String email;
 	 private String password;
 	 private String supervisor;
+	 @JsonIgnore
 	 @ManyToOne
 	 @JoinColumn(name = "project_id")
 	 private Project project;

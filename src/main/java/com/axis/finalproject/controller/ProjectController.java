@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.axis.finalproject.entity.Project;
+import com.axis.finalproject.product.dto.ProjectDto;
 import com.axis.finalproject.service.ProjectService;
 
 @RestController
@@ -39,7 +40,7 @@ public class ProjectController {
 	}
 	
 	@PostMapping("/project")
-	public ResponseEntity<String> addProject(@RequestBody Project project){
+	public ResponseEntity<String> addProject(@RequestBody ProjectDto project){
 		projectService.addProject(project);
 		return new ResponseEntity<String>("Project added Successfuly",HttpStatus.OK);
 	}

@@ -93,17 +93,20 @@ public class AuthController {
 //                userDetails.getEmail(), 
 //                roles));
 //	}
+	
 	  @PostMapping("/token")
 	  public SignInResponseDto getToken(@RequestBody SignInDto login) throws ServletException {
 		  BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();  
 		  
 	        String jwttoken = "";
-	        Employee emp = userRepository.findByemail(login.getEmail());
-	        encoder.matches(login.getPassword(), emp.getPassword());  
+	        Employee employee = userRepository.findByemail(login.getEmail());
+	        System.out.println(employee);
+	        encoder.matches(login.getPassword(), employee.getPassword());  
+	        
 	        if(login.getEmail().isEmpty() || login.getPassword().isEmpty())
 	        	throw new AuthenticationFailException("Email or password cannot be empty.");
 	 
-	        if(!(login.getEmail().matches(emp.getEmail()) &&  encoder.matches(login.getPassword(), emp.getPassword())))
+	        if(!(login.getEmail().matches(employee.getEmail()) &&  encoder.matches(login.getPassword(), employee.getPassword())))
 	        	throw new AuthenticationFailException("Invalid credentials. Please check the Email and password.");
 	        else {
 	           
@@ -117,8 +120,8 @@ public class AuthController {
 	            jwttoken = Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
 	            System.out.println("Returning the following token to the user= "+ jwttoken);
 	        }
-	 
-	        return new SignInResponseDto(jwttoken,emp.getEmpID(),emp.getName(),emp.getEmail(),emp.getRoles());
+	        
+	        return new SignInResponseDto(jwttoken,employee.getEmpID(),employee.getName(),employee.getEmail(),employee.getRoles());
 	    }
 
 	@PostMapping("/signup")
