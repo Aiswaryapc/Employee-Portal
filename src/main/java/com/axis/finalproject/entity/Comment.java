@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Comment {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	 private int commentID;
+	private int commentID;
 	private String comment;
 	 @ManyToOne
 	 @JoinColumn(name = "employee_id")

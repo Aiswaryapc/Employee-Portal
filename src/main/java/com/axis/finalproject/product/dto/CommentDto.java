@@ -5,26 +5,32 @@ package com.axis.finalproject.product.dto;
 
 public class CommentDto {
 	private String comment;
-	private String employeeName;
+	private String email;
 	private String newsfeedheading;
-	public CommentDto(String comment, String employeeName, String newsfeedheading) {
+
+	public CommentDto(String comment, String email, String newsfeedheading) {
 		super();
 		this.comment = comment;
-		this.employeeName = employeeName;
+		this.email = email;
 		this.newsfeedheading = newsfeedheading;
 	}
+	
 	public String getComment() {
 		return comment;
 	}
+
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public String getEmployeeName() {
-		return employeeName;
+
+	public String getEmail() {
+		return email;
 	}
-	public void setEmployeeName(String employeeName) {
-		this.employeeName = employeeName;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
+
 	public String getNewsfeedheading() {
 		return newsfeedheading;
 	}

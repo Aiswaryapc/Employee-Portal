@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.axis.finalproject.entity.Employee;
 import com.axis.finalproject.entity.NewsFeed;
 import com.axis.finalproject.exceptions.NewsFeedNotFoundException;
 import com.axis.finalproject.product.dto.NewsFeedDto;
@@ -36,10 +37,11 @@ public class NewsFeedService {
 
 
 	public void addNewsFeed(NewsFeedDto newsFeedDto) {
+		
 		NewsFeed newsFeed = new NewsFeed(newsFeedDto.getHeading(),
 				newsFeedDto.getDescription(),
 				newsFeedDto.getImage(),
-				employeeRepository.findByName(newsFeedDto.getEmployeeName())
+				employeeRepository.findByemail(newsFeedDto.getEmail())
 				);
 		newsFeedRepository.save(newsFeed);
 	}

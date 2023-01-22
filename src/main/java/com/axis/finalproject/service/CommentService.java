@@ -43,7 +43,7 @@ public class CommentService {
 
 	public void addComment(CommentDto commentDto) {
 		Comment comment = new Comment(commentDto.getComment(),
-				employeeRepository.findByName(commentDto.getEmployeeName()),
+				employeeRepository.findByemail(commentDto.getEmail()),
 				newsFeedRepository.findByHeading(commentDto.getNewsfeedheading())
 				);
 		commentRepository.save(comment);
