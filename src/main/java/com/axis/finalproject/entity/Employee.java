@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,11 +12,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
 public class Employee {
@@ -33,6 +38,9 @@ public class Employee {
 	 private String email;
 	 private String password;
 	 private String supervisor;
+//	 @Lob
+//	@Column(columnDefinition = "MEDIUMBLOB")
+//	private String image;
 	 @JsonIgnore
 	 @ManyToOne
 	 @JoinColumn(name = "project_id")
@@ -50,8 +58,11 @@ public class Employee {
 		@OneToMany(mappedBy = "employee", fetch = FetchType.LAZY,
 				cascade = CascadeType.ALL )
 		Set<Comment> comment;
-		
-		
+//		@JsonIgnore
+//		 @OneToOne(targetEntity = ProfileImage.class, fetch = FetchType.EAGER)
+//		    @JoinColumn(nullable = false, name = "img_id")
+//		    private ProfileImage img;
+//		
 	 
 public Employee(){
 	
@@ -73,6 +84,7 @@ public Employee(String name, String gender, int age, String address, String city
 	this.supervisor = supervisor;
 	this.project = project;
 }
+
 
 
 
@@ -263,10 +275,14 @@ public void setProject(Project project) {
 
 @Override
 public String toString() {
-	return "Employee [empID=" + empID + ", name=" + name + ", Gender=" + gender + ", age=" + age + ", address="
+	return "Employee [empID=" + empID + ", name=" + name + ", gender=" + gender + ", age=" + age + ", address="
 			+ address + ", city=" + city + ", state=" + state + ", mobileNumber=" + mobileNumber + ", email=" + email
-			+ ", password=" + password + ", supervisor=" + supervisor + ", project=" + project + "]";
+			+ ", password=" + password + ", supervisor=" + supervisor + ", project=" + project
+			+ ", roles=" + roles + ", newsFeed=" + newsFeed + ", comment=" + comment + "]";
 }
+
+
+
 
 
 

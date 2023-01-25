@@ -26,7 +26,7 @@ private Employee emp;
 	 private String city;
 	 private String state;
 	 private String mobileNumber;
-	 private String email;
+	 private String username;
 	
 	 private String supervisor;
 
@@ -38,7 +38,7 @@ private Employee emp;
 	
 
 	public UserDetailsImpl(int empID, String name, String gender, int age, String address, String city, String state,
-			String mobileNumber, String email, String supervisor, String password,
+			String mobileNumber, String username, String supervisor, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		super();
 		this.empID = empID;
@@ -49,7 +49,7 @@ private Employee emp;
 		this.city = city;
 		this.state = state;
 		this.mobileNumber = mobileNumber;
-		this.email = email;
+		this.username = username;
 		this.supervisor = supervisor;
 		this.password = password;
 		this.authorities = authorities;
@@ -63,16 +63,15 @@ private Employee emp;
 		return new UserDetailsImpl(
 				emp.getEmpID(), 
 				emp.getName(), 
-				emp.getEmail(),
-				emp.getAge(), 
 				emp.getGender(), 
-				emp.getPassword(), 
+				emp.getAge(), 				
 				emp.getAddress(), 
 				emp.getCity(), 
 				emp.getState(), 
 				emp.getMobileNumber(), 
+				emp.getEmail(),
 				emp.getSupervisor(), 
-				
+				emp.getPassword(), 
 				authorities);
 	}
 
@@ -106,6 +105,14 @@ private Employee emp;
 		this.gender = gender;
 	}
 
+	public Employee getEmp() {
+		return emp;
+	}
+
+	public void setEmp(Employee emp) {
+		this.emp = emp;
+	}
+
 	public int getAge() {
 		return age;
 	}
@@ -116,6 +123,14 @@ private Employee emp;
 
 	public String getAddress() {
 		return address;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public void setAddress(String address) {
@@ -146,13 +161,7 @@ private Employee emp;
 		this.mobileNumber = mobileNumber;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	
 
 	public String getSupervisor() {
 		return supervisor;
@@ -213,12 +222,6 @@ private Employee emp;
 			return false;
 		UserDetailsImpl other = (UserDetailsImpl) obj;
 		return Objects.equals(empID, other.empID);
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return emp.getEmail();
 	}
 
 

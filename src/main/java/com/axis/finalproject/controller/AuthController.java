@@ -22,6 +22,9 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.mapping.Attributes2GrantedAuthoritiesMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -73,31 +76,33 @@ public class AuthController {
 	@Value("${app.jwtSecret}")
 	private String jwtSecret;
 	//@PreAuthorize("hasRole('ROLE_USER')")
-//	@PostMapping("/signin")
-//	public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInDto loginRequest ) throws Exception {
-//
-//		Authentication authentication = authenticationManager.authenticate(
-//				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-//
-//		SecurityContextHolder.getContext().setAuthentication(authentication);
-//		String jwt = jwtUtils.generateJwtToken(authentication);
-//		
-//		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
-//		List<String> roles = userDetails.getAuthorities().stream()
-//				.map(item -> item.getAuthority())
-//				.collect(Collectors.toList());
-//
-//		return ResponseEntity.ok(new SignInResponseDto(jwt,
-//				userDetails.getEmpID(), 
-//                userDetails.getName(), 
-//                userDetails.getEmail(), 
-//                roles));
-//	}
+	@PostMapping("/signin")
+	
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInDto loginRequest ) throws Exception {
+
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		String jwt = jwtUtils.generateJwtToken(authentication);
+		
+		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
+		List<String> roles = userDetails.getAuthorities().stream()
+				.map(item -> item.getAuthority())
+				.collect(Collectors.toList());
+
+		return ResponseEntity.ok(jwt);
+	}
 	
 	  @PostMapping("/token")
 	  public SignInResponseDto getToken(@RequestBody SignInDto login) throws ServletException {
-		  BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();  
-		  
+		  BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); 
+		  Employee emp= userRepository.findByemail(login.getEmail());
+		  Set<Role> role=emp.getRoles() ;
+		  ERole name=ERole.ROLE_USER;
+		  for (Role ro: role) {   
+	         name=  ro.getName();
+	            };
 	        String jwttoken = "";
 	        Employee employee = userRepository.findByemail(login.getEmail());
 	        System.out.println(employee);
@@ -114,7 +119,7 @@ public class AuthController {
 	            claims.put("usr", login.getEmail());
 	            claims.put("sub", "Authentication token");
 	            //claims.put("iss", Iconstants.ISSUER);
-	            claims.put("rol", "Administrator, Developer");
+	            claims.put("rol", name);
 	            claims.put("iat", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 	 
 	            jwttoken = Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
@@ -127,11 +132,11 @@ public class AuthController {
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupDto signUpRequest) {
 
-		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return ResponseEntity
-					.badRequest()
-					.body(new CustomException("Error: Email is already in use!"));
-		}
+//		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+//			return ResponseEntity
+//					.badRequest()
+//					.body(new CustomException("Error: Email is already in use!"));
+//		}
 
 		// Create new user's account
 		Employee emp = new Employee( 
@@ -145,6 +150,7 @@ public class AuthController {
 				signUpRequest.getEmail(),
 				encoder.encode(signUpRequest.getPassword()),
 				signUpRequest.getSupervisor()
+				
 				);
 
 		Set<String> strRoles = signUpRequest.getRoles();

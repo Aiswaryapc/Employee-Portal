@@ -17,6 +17,7 @@ public class SignupDto {
 	 private String password;
 	 private String supervisor;
 	 private Set<String> roles;
+	 private String image;
 	public SignupDto(String name, String gender, int age, String address, String city, String state, String mobileNumber,
 			String email, String password, String supervisor) {
 		super();
@@ -32,6 +33,23 @@ public class SignupDto {
 		this.supervisor = supervisor;
 	}
 	
+	public SignupDto(String name, String gender, int age, String address, String city, String state,
+			String mobileNumber, String email, String password, String supervisor, Set<String> roles, String image) {
+		super();
+		this.name = name;
+		this.gender = gender;
+		this.age = age;
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.mobileNumber = mobileNumber;
+		this.email = email;
+		this.password = password;
+		this.supervisor = supervisor;
+		this.roles = roles;
+		this.image = image;
+	}
+
 	public SignupDto(String name, String gender, int age, String address, String city, String state,
 			String mobileNumber, String email, String password, String supervisor, Set<String> roles) {
 		super();
@@ -50,6 +68,14 @@ public class SignupDto {
 
 	public SignupDto() {
 		super();
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public Set<String> getRoles() {
