@@ -73,53 +73,53 @@ public class AuthController {
 	@Value("${app.jwtSecret}")
 	private String jwtSecret;
 	//@PreAuthorize("hasRole('ROLE_USER')")
-//	@PostMapping("/signin")
-//	public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInDto loginRequest ) throws Exception {
-//
-//		Authentication authentication = authenticationManager.authenticate(
-//				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-//
-//		SecurityContextHolder.getContext().setAuthentication(authentication);
-//		String jwt = jwtUtils.generateJwtToken(authentication);
-//		
-//		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
-//		List<String> roles = userDetails.getAuthorities().stream()
-//				.map(item -> item.getAuthority())
-//				.collect(Collectors.toList());
-//
-//		return ResponseEntity.ok(new SignInResponseDto(jwt,
-//				userDetails.getEmpID(), 
-//                userDetails.getName(), 
-//                userDetails.getEmail(), 
-//                roles));
-//	}
-	  @PostMapping("/token")
-	  public SignInResponseDto getToken(@RequestBody SignInDto login) throws ServletException {
-		  BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();  
-		  
-	        String jwttoken = "";
-	        Employee emp = userRepository.findByemail(login.getEmail());
-	        encoder.matches(login.getPassword(), emp.getPassword());  
-	        if(login.getEmail().isEmpty() || login.getPassword().isEmpty())
-	        	throw new AuthenticationFailException("Email or password cannot be empty.");
-	 
-	        if(!(login.getEmail().matches(emp.getEmail()) &&  encoder.matches(login.getPassword(), emp.getPassword())))
-	        	throw new AuthenticationFailException("Invalid credentials. Please check the Email and password.");
-	        else {
-	           
-	            Map<String, Object> claims = new HashMap<String, Object>();
-	            claims.put("usr", login.getEmail());
-	            claims.put("sub", "Authentication token");
-	            //claims.put("iss", Iconstants.ISSUER);
-	            claims.put("rol", "Administrator, Developer");
-	            claims.put("iat", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-	 
-	            jwttoken = Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
-	            System.out.println("Returning the following token to the user= "+ jwttoken);
-	        }
-	 
-	        return new SignInResponseDto(jwttoken,emp.getEmpID(),emp.getName(),emp.getEmail(),emp.getRoles());
-	    }
+	//	@PostMapping("/signin")
+	//	public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInDto loginRequest ) throws Exception {
+	//
+	//		Authentication authentication = authenticationManager.authenticate(
+	//				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+	//
+	//		SecurityContextHolder.getContext().setAuthentication(authentication);
+	//		String jwt = jwtUtils.generateJwtToken(authentication);
+	//		
+	//		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
+	//		List<String> roles = userDetails.getAuthorities().stream()
+	//				.map(item -> item.getAuthority())
+	//				.collect(Collectors.toList());
+	//
+	//		return ResponseEntity.ok(new SignInResponseDto(jwt,
+	//				userDetails.getEmpID(), 
+	//                userDetails.getName(), 
+	//                userDetails.getEmail(), 
+	//                roles));
+	//	}
+	@PostMapping("/token")
+	public SignInResponseDto getToken(@RequestBody SignInDto login) throws ServletException {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();  
+
+		String jwttoken = "";
+		Employee emp = userRepository.findByemail(login.getEmail());
+		encoder.matches(login.getPassword(), emp.getPassword());  
+		if(login.getEmail().isEmpty() || login.getPassword().isEmpty())
+			throw new AuthenticationFailException("Email or password cannot be empty.");
+
+		if(!(login.getEmail().matches(emp.getEmail()) &&  encoder.matches(login.getPassword(), emp.getPassword())))
+			throw new AuthenticationFailException("Invalid credentials. Please check the Email and password.");
+		else {
+
+			Map<String, Object> claims = new HashMap<String, Object>();
+			claims.put("usr", login.getEmail());
+			claims.put("sub", "Authentication token");
+			//claims.put("iss", Iconstants.ISSUER);
+			claims.put("rol", "Administrator, Developer");
+			claims.put("iat", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+
+			jwttoken = Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
+			System.out.println("Returning the following token to the user= "+ jwttoken);
+		}
+
+		return new SignInResponseDto(jwttoken,emp.getEmpID(),emp.getName(),emp.getEmail(),emp.getRoles());
+	}
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupDto signUpRequest) {
@@ -156,13 +156,13 @@ public class AuthController {
 				switch (role) {
 				case "ROLE_ADMIN":
 					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(adminRole);
 
 					break;
 				default:
 					Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(userRole);
 				}
 			});
@@ -172,7 +172,7 @@ public class AuthController {
 		userRepository.save(emp);
 		return new ResponseEntity<String>("Employee created", HttpStatus.CREATED);
 
-		
+
 	}
 }
 
