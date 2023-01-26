@@ -1,6 +1,7 @@
 package com.axis.finalproject.service;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,12 @@ public class ProfileImageService  {
 	}
 
 	public void addEmployeeProfileImage(String userId, MultipartFile file) {
+		Optional<ProfileImage> img= profileImageRepository.getByemployeeId(userId);
+			if(img.isPresent()){
+					profileImageRepository.deleteById(img.get().getFileName());}
+		
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		
 		try {
 			if(fileName.contains("..")) {
 				throw new ProfileImageStorageException("Filename contains Invalid Path Sequence" + fileName);
@@ -44,21 +50,7 @@ public class ProfileImageService  {
 			throw new ProfileImageStorageException("Could not store file " + fileName + ". Please try again!");
 		}
 	}
-	public void addManagerProfileImage(String userId, MultipartFile file) {
-		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		try {
-			if(fileName.contains("..")) {
-				throw new ProfileImageStorageException("Filename contains Invalid Path Sequence" + fileName);
-			}
-			ProfileImage profileImage = new ProfileImage();
-			profileImage.setFileName(fileName);
-			profileImage.setFileType(file.getContentType());
-			profileImage.setData(file.getBytes());
-			profileImageRepository.save(profileImage);
-		} catch(IOException e) {
-			throw new ProfileImageStorageException("Could not store file " + fileName + ". Please try again!");
-		}
-	}
+	
 	public void addStakeholderProfileImage(String userId, MultipartFile file) {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		try {

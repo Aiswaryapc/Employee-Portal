@@ -55,6 +55,7 @@ public class ProfileImageController {
 	@PostMapping("/employee/profile-image/add")
 	public ResponseEntity<String> addEmployeeProfileImage(@RequestParam("userId") String userId,
 			@RequestParam("file") MultipartFile file) {
+		
 		profileImageService.addEmployeeProfileImage(userId, file);
 		return new ResponseEntity<>("Profile Image Uploaded Successfully", HttpStatus.OK);
 	}

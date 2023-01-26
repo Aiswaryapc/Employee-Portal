@@ -31,6 +31,7 @@ public class Employee {
 	 private String name;
 	 private String gender;
 	 private int age;
+	 private String designation;
 	 private String address;
 	 private String city;
 	 private String state;
@@ -66,6 +67,42 @@ public class Employee {
 	 
 public Employee(){
 	
+}
+
+
+public Employee( String name, String gender, int age, String designation, String address, String city,
+		String state, String mobileNumber, String email, String password, String supervisor, Set<Role> roles) {
+	super();
+	this.name = name;
+	this.gender = gender;
+	this.age = age;
+	this.designation = designation;
+	this.address = address;
+	this.city = city;
+	this.state = state;
+	this.mobileNumber = mobileNumber;
+	this.email = email;
+	this.password = password;
+	this.supervisor = supervisor;
+	this.roles = roles;
+}
+
+
+public Employee(String name, String gender, int age, String designation, String address, String city, String state,
+		String mobileNumber, String email, String password, String supervisor, Project project) {
+	super();
+	this.name = name;
+	this.gender = gender;
+	this.age = age;
+	this.designation = designation;
+	this.address = address;
+	this.city = city;
+	this.state = state;
+	this.mobileNumber = mobileNumber;
+	this.email = email;
+	this.password = password;
+	this.supervisor = supervisor;
+	this.project = project;
 }
 
 
@@ -120,6 +157,16 @@ public Employee(String name, String gender, int age, String address, String city
 	this.email = email;
 	this.password = password;
 	this.supervisor = supervisor;
+}
+
+
+public String getDesignation() {
+	return designation;
+}
+
+
+public void setDesignation(String designation) {
+	this.designation = designation;
 }
 
 
