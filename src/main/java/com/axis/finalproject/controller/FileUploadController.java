@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +19,7 @@ import com.axis.finalproject.response.Response;
 import com.axis.finalproject.service.SalarySlipService;
 @RestController
 @RequestMapping("/api/test/")
+@CrossOrigin("http://localhost:3000")
 public class FileUploadController {
 	 @Autowired
 	    private SalarySlipService fileStorageService;

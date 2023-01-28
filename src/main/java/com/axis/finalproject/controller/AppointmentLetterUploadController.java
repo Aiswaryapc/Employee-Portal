@@ -1,6 +1,7 @@
 package com.axis.finalproject.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +13,7 @@ import com.axis.finalproject.entity.AppointmentLetter;
 import com.axis.finalproject.entity.SalarySlip;
 import com.axis.finalproject.response.Response;
 import com.axis.finalproject.service.AppointmentLetterService;
-
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/api/test/")
 public class AppointmentLetterUploadController {

@@ -1,4 +1,4 @@
-package com.axis.finalproject.product.dto;
+package com.axis.finalproject.dto;
 
 import java.util.List;
 import java.util.Set;

@@ -6,12 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.axis.finalproject.dto.CommentDto;
 import com.axis.finalproject.entity.Comment;
 
 import com.axis.finalproject.exceptions.CommentNotFoundException;
-
-import com.axis.finalproject.product.dto.CommentDto;
-
 import com.axis.finalproject.repository.CommentRepository;
 import com.axis.finalproject.repository.EmployeeRepository;
 import com.axis.finalproject.repository.NewsFeedRepository;

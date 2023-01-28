@@ -1,15 +1,19 @@
 package com.axis.finalproject.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.axis.finalproject.dto.StakeholderDto;
+
 import com.axis.finalproject.entity.Stakeholders;
 
 import com.axis.finalproject.exceptions.StakeholderNotFoundException;
-import com.axis.finalproject.product.dto.StakeholderDto;
 import com.axis.finalproject.repository.ProjectRepository;
 import com.axis.finalproject.repository.StakeholderRepository;
 @Service
@@ -45,7 +49,23 @@ public class StakeholderService {
 		stakeholderRepository.save(stakeholder);
 	}
 
-	
+	@Transactional
+	public Stakeholders updateStakeholder(int stakeholderId,StakeholderDto stakeholderDto) {
+		 Stakeholders stake
+         = stakeholderRepository.findById(stakeholderId)
+               .get();
+
+     if (Objects.nonNull(stakeholderDto.getProject())
+            ) {
+            		 
+            stake.setProject(projectRepository.findByProjName(stakeholderDto.getProject()));
+            		
+         }
+
+
+     return stakeholderRepository.save(stake);
+	}
+
 	public void deleteStakeholderById(Integer stakeholderId) {
 		
 		stakeholderRepository.deleteById(stakeholderId);

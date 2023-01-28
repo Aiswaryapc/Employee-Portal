@@ -8,11 +8,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.axis.finalproject.dto.ProductDto;
 import com.axis.finalproject.entity.Product;
 
 import com.axis.finalproject.exceptions.ProductNotExistsException;
-import com.axis.finalproject.product.dto.ProductDto;
-
 import com.axis.finalproject.repository.ProductRepository;
 
 @Service

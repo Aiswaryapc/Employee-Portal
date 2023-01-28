@@ -9,6 +9,7 @@ public class SignupDto {
 	 private String name;
 	 private String gender;
 	 private int age;
+	 private String designation;
 	 private String address;
 	 private String city;
 	 private String state;
@@ -16,29 +17,19 @@ public class SignupDto {
 	 private String email;
 	 private String password;
 	 private String supervisor;
+	 private String project;
 	 private Set<String> roles;
 	 private String image;
-	public SignupDto(String name, String gender, int age, String address, String city, String state, String mobileNumber,
-			String email, String password, String supervisor) {
-		super();
-		this.name = name;
-		this.gender = gender;
-		this.age = age;
-		this.address = address;
-		this.city = city;
-		this.state = state;
-		this.mobileNumber = mobileNumber;
-		this.email = email;
-		this.password = password;
-		this.supervisor = supervisor;
-	}
 	
-	public SignupDto(String name, String gender, int age, String address, String city, String state,
-			String mobileNumber, String email, String password, String supervisor, Set<String> roles, String image) {
+
+
+	public SignupDto(String name, String gender, int age, String designation, String address, String city, String state,
+			String mobileNumber, String email, String password, String supervisor, String project, Set<String> roles) {
 		super();
 		this.name = name;
 		this.gender = gender;
 		this.age = age;
+		this.designation = designation;
 		this.address = address;
 		this.city = city;
 		this.state = state;
@@ -46,16 +37,17 @@ public class SignupDto {
 		this.email = email;
 		this.password = password;
 		this.supervisor = supervisor;
+		this.project = project;
 		this.roles = roles;
-		this.image = image;
 	}
 
-	public SignupDto(String name, String gender, int age, String address, String city, String state,
-			String mobileNumber, String email, String password, String supervisor, Set<String> roles) {
+	public SignupDto(String name, String gender, int age, String designation, String address, String city, String state,
+			String mobileNumber, String email, String password, String supervisor, String project) {
 		super();
 		this.name = name;
 		this.gender = gender;
 		this.age = age;
+		this.designation = designation;
 		this.address = address;
 		this.city = city;
 		this.state = state;
@@ -63,7 +55,23 @@ public class SignupDto {
 		this.email = email;
 		this.password = password;
 		this.supervisor = supervisor;
-		this.roles = roles;
+		this.project = project;
+	}
+
+	public String getProject() {
+		return project;
+	}
+
+	public void setProject(String project) {
+		this.project = project;
+	}
+
+	public String getDesignation() {
+		return designation;
+	}
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
 	}
 
 	public SignupDto() {

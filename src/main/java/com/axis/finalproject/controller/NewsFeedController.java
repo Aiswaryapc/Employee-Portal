@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.axis.finalproject.dto.NewsFeedDto;
 import com.axis.finalproject.entity.NewsFeed;
-import com.axis.finalproject.product.dto.NewsFeedDto;
 import com.axis.finalproject.service.NewsFeedService;
 
 @RestController

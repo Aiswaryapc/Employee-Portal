@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.axis.finalproject.dto.CommentDto;
 import com.axis.finalproject.entity.Comment;
-import com.axis.finalproject.product.dto.CommentDto;
 import com.axis.finalproject.service.CommentService;
 
 @RestController

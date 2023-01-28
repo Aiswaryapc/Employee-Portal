@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.axis.finalproject.dto.NewsFeedDto;
 import com.axis.finalproject.entity.Employee;
 import com.axis.finalproject.entity.NewsFeed;
 import com.axis.finalproject.exceptions.NewsFeedNotFoundException;
-import com.axis.finalproject.product.dto.NewsFeedDto;
 import com.axis.finalproject.repository.CommentRepository;
 import com.axis.finalproject.repository.EmployeeRepository;
 import com.axis.finalproject.repository.NewsFeedRepository;

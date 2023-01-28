@@ -1,8 +1,8 @@
 package com.axis.finalproject.service;
 import java.util.List;
 
+import com.axis.finalproject.dto.ProjectDto;
 import com.axis.finalproject.entity.Project;
-import com.axis.finalproject.product.dto.ProjectDto;
 
 
 

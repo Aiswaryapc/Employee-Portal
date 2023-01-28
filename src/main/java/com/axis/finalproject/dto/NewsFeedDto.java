@@ -1,4 +1,4 @@
-package com.axis.finalproject.product.dto;
+package com.axis.finalproject.dto;
 
 public class NewsFeedDto {
 	private String heading;

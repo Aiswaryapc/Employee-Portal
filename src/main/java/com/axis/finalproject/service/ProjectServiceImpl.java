@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import com.axis.finalproject.dto.ProjectDto;
 import com.axis.finalproject.entity.Employee;
 import com.axis.finalproject.entity.Project;
 import com.axis.finalproject.entity.Stakeholders;
@@ -14,7 +15,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.axis.finalproject.exceptions.ProjectNotFoundException;
-import com.axis.finalproject.product.dto.ProjectDto;
 import com.axis.finalproject.repository.EmployeeRepository;
 
 import com.axis.finalproject.repository.ProjectRepository;

@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.axis.finalproject.dto.StakeholderDto;
+import com.axis.finalproject.dto.employee.SignupDto;
 import com.axis.finalproject.entity.Stakeholders;
-import com.axis.finalproject.product.dto.StakeholderDto;
 import com.axis.finalproject.service.StakeholderService;
 
 @RestController
@@ -40,7 +42,11 @@ public class StakeholderController {
 		stakeholderService.addStakeholders(stakeholderDto);
 		return new ResponseEntity<String>("Stakeholder added Successfuly",HttpStatus.OK);
 	}
-	
+	@PutMapping("stakeholder/update/{stakeholderId}")
+	public ResponseEntity<String> updateEmpInfo(@PathVariable int stakeholderId,@RequestBody StakeholderDto stakeholderDto){
+		stakeholderService.updateStakeholder(stakeholderId, stakeholderDto);
+		return new ResponseEntity<String>("Stakeholder with stakeholderId id:"+ stakeholderId+" updated successfully",HttpStatus.OK);
+	}
 	@DeleteMapping("stakeholder/delete/{stakeholderId}")
 	public ResponseEntity<String> deleteStakeholder(@PathVariable Integer stakeholderId){
 		stakeholderService.deleteStakeholderById(stakeholderId);

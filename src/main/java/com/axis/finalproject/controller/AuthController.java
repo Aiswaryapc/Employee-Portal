@@ -132,11 +132,11 @@ public class AuthController {
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupDto signUpRequest) {
 
-//		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-//			return ResponseEntity
-//					.badRequest()
-//					.body(new CustomException("Error: Email is already in use!"));
-//		}
+		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+			return ResponseEntity
+					.badRequest()
+					.body(new CustomException("Error: Email is already in use!"));
+		}
 
 		// Create new user's account
 		Employee emp = new Employee( 
