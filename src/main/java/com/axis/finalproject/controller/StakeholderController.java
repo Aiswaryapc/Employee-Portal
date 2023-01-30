@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import com.axis.finalproject.service.StakeholderService;
 
 @RestController
 @RequestMapping("/api/test/")
+@CrossOrigin("http://localhost:3000")
 public class StakeholderController {
 	@Autowired
 	private StakeholderService stakeholderService;
@@ -42,7 +44,7 @@ public class StakeholderController {
 		stakeholderService.addStakeholders(stakeholderDto);
 		return new ResponseEntity<String>("Stakeholder added Successfuly",HttpStatus.OK);
 	}
-	@PutMapping("stakeholder/update/{stakeholderId}")
+	@PostMapping("stakeholder/update/{stakeholderId}")
 	public ResponseEntity<String> updateEmpInfo(@PathVariable int stakeholderId,@RequestBody StakeholderDto stakeholderDto){
 		stakeholderService.updateStakeholder(stakeholderId, stakeholderDto);
 		return new ResponseEntity<String>("Stakeholder with stakeholderId id:"+ stakeholderId+" updated successfully",HttpStatus.OK);

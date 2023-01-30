@@ -21,7 +21,7 @@ import com.axis.finalproject.service.DocumentService;
 
 
 @RestController
-@RequestMapping("/api/test/")
+@RequestMapping("/api/test")
 @CrossOrigin(value = "http://localhost:3000")
 public class DocumentController {
 	

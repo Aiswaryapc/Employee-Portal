@@ -40,7 +40,7 @@ public class EmployeeController {
 	public List<Employee> getEmployee()	{
 		return empService.getAllEmployees();
 		}
-	@PutMapping("emp/update/{empID}")
+	@PostMapping("emp/update/{empID}")
 	public ResponseEntity<String> updateEmpInfo(@PathVariable int empID,@RequestBody SignupDto updatedEmployee){
 		empService.updateEmployee(empID, updatedEmployee);
 		return new ResponseEntity<String>("Employee with empID id:"+ empID+" updated successfully",HttpStatus.OK);
